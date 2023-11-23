@@ -155,6 +155,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
   //     .join(", ");
   // };
 
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 ₫");
+  };
+
   return (
     <div
       // onClick={() => console.log(data.id)}
@@ -340,7 +344,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="flex flex-row text-md items-center gap-4 mt-3">
             <div className="flex flex-row items-center gap-2">
               <del className="font-light text-[#ed9080]">
-                {data?.originalPrice}
+                {formattedPrice(data?.price ?? 0)}
               </del>{" "}
               <span>₫</span>
             </div>
