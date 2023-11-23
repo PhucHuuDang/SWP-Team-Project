@@ -68,6 +68,9 @@ const ServicesCart: React.FC<ServicesCartProps> = ({
   const day = String(currentDate.getDate()).padStart(2, "0"); // Pad with 0 if needed.
 
   const formattedDate = `${year}-${month}-${day}`;
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 ₫");
+  };
 
   const dateTimeString = formattedDate;
 
