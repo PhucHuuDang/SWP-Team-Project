@@ -6,6 +6,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import ClientOnly from "../components/ClientOnly";
 import EmptyState from "../components/EmptyState";
+import numeral from "numeral";
 
 type ListingBookingOneDayProps = {
   id: string;
@@ -44,6 +45,10 @@ const DashboardOrderClient: React.FC<DashboardOrderClientProps> = ({
       </ClientOnly>
     );
   }
+
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 ₫");
+  };
 
   return (
     <div className="p-20">
@@ -98,10 +103,7 @@ const DashboardOrderClient: React.FC<DashboardOrderClientProps> = ({
                 </div>
                 <div className="pl-4">
                   <p className="text-gray-800 font-bold">
-                    {order.totalPay.toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
+                    {formattedPrice(order.totalPay)}
                   </p>
                   <p className="text-gray-800 text-sm">{order.studentName}</p>
                 </div>

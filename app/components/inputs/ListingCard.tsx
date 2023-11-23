@@ -12,6 +12,7 @@ import Image from "next/image";
 import Button from "../Button";
 import { IconType } from "react-icons";
 import useUpdateComboModal from "@/app/hooks/useUpdateComboModal";
+import numeral from "numeral";
 
 interface ListingCardProps {
   onAction?: (id: string) => void;
@@ -125,6 +126,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
       .join(", ");
   };
 
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 ₫");
+  };
+
   return (
     <div
       // onClick={() => console.log(data.id)}
@@ -234,17 +239,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
         {packageData ? (
           <div className="flex text-lg flex-row items-center gap-2">
             <span className="font-semibold text-[#ff6347] ">
-              {packageData.totalPrice}
+              {formattedPrice(packageData.totalPrice)}
             </span>{" "}
-            $
+            đ
           </div>
         ) : (
           <div className="flex flex-row items-center gap-1">
             <div className=" flex items-center justify-center text-lg gap-2">
               <span className="font-semibold text-[#ff6347] ">
-                {data?.price}
+                {formattedPrice(data?.price ?? 0)}
               </span>{" "}
-              $
+              đ
             </div>
           </div>
         )}

@@ -4,6 +4,7 @@ import { ServiceProp } from "@/app/types";
 import Container from "../../components/Container";
 import ListingHead from "../../components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
+import numeral from "numeral";
 
 interface ListingClientProps {
   listingServiceById: ServiceProp;
@@ -13,6 +14,10 @@ const ListingClient: React.FC<ListingClientProps> = ({
   listingServiceById,
 }) => {
   // console.log("listingServiceById: ", listingServiceById);
+
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 ₫");
+  };
 
   return (
     <Container>
@@ -37,7 +42,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
           <ListingInfo
             createdBy={listingServiceById.createBy}
             serviceDescription={listingServiceById.serviceDescription}
-            price={listingServiceById.price}
+            price={Number(formattedPrice(listingServiceById.price))}
           />
           {/* </div> */}
         </div>

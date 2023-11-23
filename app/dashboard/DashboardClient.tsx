@@ -20,6 +20,7 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 import { useRouter } from "next/navigation";
 import ClientOnly from "../components/ClientOnly";
 import EmptyState from "../components/EmptyState";
+import numeral from "numeral";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -150,6 +151,10 @@ const DashboardClient: React.FC<DashboardClientProps> = ({
     );
   }
 
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 ₫");
+  };
+
   return (
     <main className="bg-gray-100 min-h-screen">
       {/* Đây là các TopCart 3 cái ở phía trên */}
@@ -174,10 +179,7 @@ const DashboardClient: React.FC<DashboardClientProps> = ({
                 pb-4"
           >
             <p className="text-2xl font-bold">
-              {numericTotalPriceOneDay.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
+              {formattedPrice(numericTotalPriceOneDay)}
             </p>
             <p className="text-gray-600">Daily Revenue</p>
           </div>
@@ -207,10 +209,7 @@ const DashboardClient: React.FC<DashboardClientProps> = ({
         >
           <div className="flex flex-col w-full pb-4">
             <p className="text-2xl font-bold">
-              {numericTotalPriceOneYear.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
+              {formattedPrice(numericTotalPriceOneYear)}
             </p>
             <p className="text-gray-600">YTD Revenue</p>
           </div>
@@ -309,10 +308,7 @@ const DashboardClient: React.FC<DashboardClientProps> = ({
                 </div>
                 <div className="pl-4">
                   <p className="text-gray-800 font-bold">
-                    {booking.totalPay.toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
+                    {formattedPrice(booking.totalPay)}
                   </p>
                   <p className="text-gray-400 text-sm">{booking.studentName}</p>
                 </div>
