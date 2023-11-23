@@ -20,6 +20,7 @@ import Logo from "@/app/components/navbar/Logo";
 import Heading from "@/app/components/Heading";
 import DoServiceApartmentSelect from "@/app/components/inputs/DoServiceApartmentSelect";
 import PaymentSelect from "@/app/components/inputs/PaymentSelect";
+import numeral from "numeral";
 
 interface ServicesCartProps {
   data?: PackageProps | undefined;
@@ -56,6 +57,9 @@ const ServicesCart: React.FC<ServicesCartProps> = ({
   const day = String(currentDate.getDate()).padStart(2, "0"); // Pad with 0 if needed.
 
   const formattedDate = `${year}-${month}-${day}`;
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 ₫");
+  };
 
   const dateTimeString = formattedDate;
 
@@ -418,19 +422,19 @@ const ServicesCart: React.FC<ServicesCartProps> = ({
             <div className="flex flex-row items-center gap-1">
               <span>Original Price: </span>
               <del className="font-light text-[#ed9080]">
-                {item.originalPrice}
+                {formattedPrice(item.originalPrice)}
               </del>{" "}
-              <span>$/{item.unit}</span>
+              <span>đ/{item.unit}</span>
             </div>
 
             <div key={item.id}>
               Price:{" "}
-              {
+              {formattedPrice(
                 servicesBooked.find(
                   (priceInitial) => priceInitial.id === item.id
-                )?.price
-              }
-              $/{item.unit}
+                )?.price ?? 0
+              )}
+              đ/{item.unit}
             </div>
             <div className="flex items-center gap-5">
               <div
@@ -464,7 +468,7 @@ const ServicesCart: React.FC<ServicesCartProps> = ({
               </div>
             </div>
             <div className="text-[#ff6347] font-semibold">
-              Price: {item.price}$
+              Price: {formattedPrice(item.price)}đ
             </div>
 
             <div

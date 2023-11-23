@@ -12,6 +12,7 @@ import Image from "next/image";
 import Button from "../Button";
 import { IconType } from "react-icons";
 import useUpdateComboModal from "@/app/hooks/useUpdateComboModal";
+import numeral from "numeral";
 
 interface ListingCardProps {
   onAction?: (id: string) => void;
@@ -125,6 +126,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
   //     .join(", ");
   // };
 
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 ₫");
+  };
+
   return (
     <div
       // onClick={() => console.log(data.id)}
@@ -218,30 +223,32 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="flex text-md flex-row items-center gap-4">
             <div className="flex flex-row items-center gap-2">
               <del className="font-light text-[#ed9080]">
-                {packageData.totalOriginalPrice}
+                {formattedPrice(packageData.totalOriginalPrice)}
               </del>{" "}
-              <span>$</span>
+              <span>đ</span>
             </div>
 
             <div className="flex flex-row items-center gap-2">
               <span className="font-light text-[#ff6347] ">
-                {packageData.totalPrice}
+                {formattedPrice(packageData.totalPrice)}
               </span>{" "}
-              <span>$</span>
+              <span>đ</span>
             </div>
           </div>
         ) : (
           <div className="flex flex-row text-md items-center gap-4">
             <div className="flex flex-row items-center gap-2">
               <del className="font-light text-[#ed9080]">
-                {data?.originalPrice}
+                {formattedPrice(data?.price ?? 0)}
               </del>{" "}
-              <span>$</span>
+              <span>đ</span>
             </div>
 
             <div className="flex flex-row items-center gap-2">
-              <span className="font-light text-[#ff6347] ">{data?.price}</span>{" "}
-              <span>$</span>
+              <span className="font-light text-[#ff6347] ">
+                {formattedPrice(data?.price ?? 0)}
+              </span>{" "}
+              <span>đ</span>
             </div>
           </div>
         )}
