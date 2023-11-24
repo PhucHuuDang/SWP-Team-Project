@@ -13,6 +13,7 @@ import Button from "../Button";
 import { IconType } from "react-icons";
 import useUpdateComboModal from "@/app/hooks/useUpdateComboModal";
 import useUpdateServiceModal from "@/app/hooks/useUpdateServiceModal";
+import numeral from "numeral";
 
 interface ListingCardProps {
   onAction?: (id: string) => void;
@@ -173,6 +174,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
               flex-col
               gap-2
               w-full
+              relative   
             ${combo || service ? "relative" : ""}
       `}
       >
@@ -228,11 +230,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
         {/* name of services */}
 
         {packageData ? (
-          <div className="font-semibold text-lg min-h-[56px]">
+          <div className="font-semibold text-lg min-h-[56px] relative">
             {packageData?.packageName}
           </div>
         ) : (
-          <div className="font-semibold text-lg min-h-[56px]">
+          <div className="font-semibold text-lg min-h-[56px] relative">
             {data?.serviceName}
           </div>
         )}
@@ -283,6 +285,60 @@ const ListingCard: React.FC<ListingCardProps> = ({
               </span>{" "}
               <span>đ</span>
             </div>
+          </div>
+        )}
+
+        {packageData ? (
+          <div
+            className="
+                        absolute
+                        top-0
+                        right-0
+                        m-0
+                        p-2
+                        bg-[#ff6347]
+                        text-white
+                        rounded-bl-xl
+                        font-semibold
+                        text-xs
+                        z-20
+                        flex  
+                        items-center
+                        gap-1
+                      "
+          >
+            <span>Sale</span>
+            <span>
+              {packageData?.discountPercent !== undefined
+                ? `-${packageData?.discountPercent}%`
+                : "-0%"}
+            </span>
+          </div>
+        ) : (
+          <div
+            className="
+                        absolute
+                        top-0
+                        right-0
+                        m-0
+                        p-2
+                        bg-[#ff6347]
+                        text-white
+                        rounded-bl-xl
+                        font-semibold
+                        text-xs
+                        z-20
+                        flex 
+                        items-center
+                        gap-1
+                      "
+          >
+            <span>Sale</span>
+            <span>
+              {data?.discountPercent !== undefined
+                ? `-${data?.discountPercent}%`
+                : "-0%"}
+            </span>
           </div>
         )}
 

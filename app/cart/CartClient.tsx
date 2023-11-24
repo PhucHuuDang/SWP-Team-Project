@@ -21,6 +21,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import DoServiceApartmentSelect from "../components/inputs/DoServiceApartmentSelect";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import numeral from "numeral";
 
 interface CartClientProps {
   data?: PackageProps | undefined;
@@ -56,6 +57,9 @@ const CartClient: React.FC<CartClientProps> = ({
   const day = String(currentDate.getDate()).padStart(2, "0"); // Pad with 0 if needed.
 
   const formattedDate = `${year}-${month}-${day}`;
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 ₫");
+  };
 
   //   const dateTimeString = `${formattedDate}`;
   const dateTimeString = formattedDate;
@@ -468,9 +472,9 @@ const CartClient: React.FC<CartClientProps> = ({
             <div className="flex flex-row items-center gap-2 mr-4">
               <span>Original Price: </span>
               <del className="font-light text-[#ed9080]">
-                {item.totalOriginalPrice}
+                {formattedPrice(item.totalOriginalPrice)}
               </del>{" "}
-              <span>$</span>
+              <span>đ</span>
             </div>
             {/* <div>week booking: {data.weekNumberBooking}</div> */}
             <div className="flex flex-row items-center gap-2 mr-4">
@@ -482,11 +486,12 @@ const CartClient: React.FC<CartClientProps> = ({
             {/* <div>price: {data.totalPrice}</div> */}
             <div key={item.id} className="mr-4">
               Price:{" "}
-              {
+              {formattedPrice(
                 storeBookingData.find(
                   (priceInitial) => priceInitial.id === item.id
-                )?.totalPrice
-              }
+                )?.totalPrice ?? 0
+              )}
+              đ
             </div>
             <div className="flex items-center gap-5">
               <div
@@ -518,7 +523,7 @@ const CartClient: React.FC<CartClientProps> = ({
               </div>
             </div>
             <div className="text-[#ff6347] font-semibold">
-              Price: {item.totalPrice}
+              Price: {formattedPrice(item.totalPrice)}đ
             </div>
             <div
               onClick={() => removeCart(item.id)}
@@ -561,7 +566,9 @@ const CartClient: React.FC<CartClientProps> = ({
 
           <div className="flex items-center gap-2 text-lg">
             Total payment:
-            <p className="text-[#ff6347] font-semibold">{totalPrice}</p>
+            <p className="text-[#ff6347] font-semibold">
+              {formattedPrice(totalPrice)}đ
+            </p>
           </div>
 
           {/* <div> */}
