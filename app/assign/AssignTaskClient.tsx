@@ -132,7 +132,7 @@ const AssignTaskClient: React.FC<AssignTaskClientProps> = ({
           return (
             <AssignTaskListing
               // dataStaffs={dataStaffs}
-              key={item.id}
+              key={item.serviceId}
               dataBookingDetail={item}
               openAssignModal={openAssignModal}
             />

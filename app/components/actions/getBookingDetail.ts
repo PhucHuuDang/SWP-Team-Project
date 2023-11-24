@@ -2,7 +2,7 @@
 export default async function getBookingDetail() {
   // const getData = await fetch("http://13.210.56.232/api/v1/bookingdetail", {
   const getData = await fetch(
-    "https://housevn.azurewebsites.net/api/v1/bookingdetail",
+    "https://housevn.azurewebsites.net/api/v1/bookings/attendsdonotassignbefore",
     {
       cache: "no-store",
     }
