@@ -23,11 +23,15 @@ type StaffType = {
 interface AssignModalProps {
   dataStaffs: any;
   bookingDetailId: string;
+  bookingDetailType: string;
+  bookingDetailTittle: string;
 }
 
 const AssignModal: React.FC<AssignModalProps> = ({
   dataStaffs,
   bookingDetailId,
+  bookingDetailType,
+  bookingDetailTittle,
 }) => {
   const assignModal = useAssignModal();
   const router = useRouter();
@@ -69,6 +73,8 @@ const AssignModal: React.FC<AssignModalProps> = ({
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     data.bookingDetailId = bookingDetailId;
+    data.bookingDetailType = bookingDetailType;
+    data.bookingDetailTittle = bookingDetailTittle;
     // console.log(data);
     setIsLoading(true);
 

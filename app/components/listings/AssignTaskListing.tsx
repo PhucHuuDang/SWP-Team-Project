@@ -8,7 +8,11 @@ import { useCallback, memo } from "react";
 interface AssignTaskListingProps {
   dataBookingDetail: DetailsProps;
   //   dataStaffs: any;
-  openAssignModal: (bookingDetailId: string) => void;
+  openAssignModal: (
+    bookingDetailId: string,
+    bookingDetailType: string,
+    bookingDetailTittle: string
+  ) => void;
 }
 
 const AssignTaskListing: React.FC<AssignTaskListingProps> = ({
@@ -19,7 +23,11 @@ const AssignTaskListing: React.FC<AssignTaskListingProps> = ({
   //   const assignModal = useAssignModal();
 
   const handleOpenAssignModal = useCallback(() => {
-    openAssignModal(dataBookingDetail.serviceId);
+    openAssignModal(
+      dataBookingDetail.bookingDetailId,
+      dataBookingDetail.bookingDetailType,
+      dataBookingDetail.bookingDetailTittle
+    );
   }, [dataBookingDetail, openAssignModal]);
 
   //   console.log(dataBookingDetail);
