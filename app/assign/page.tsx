@@ -3,13 +3,18 @@ import Heading from "../components/Heading";
 import getAllStaffs from "../components/actions/getAllStaffs";
 import getBookingDetail from "../components/actions/getBookingDetail";
 import getRoleUser from "../components/actions/getRoleUser";
+import getStaffByServiceId from "../components/actions/getStaffByServiceId";
 import { DetailsProps } from "../types";
 import AssignTaskClient from "./AssignTaskClient";
 
 const AssignPage = async () => {
-  const allBookingDetail = await getBookingDetail();
-  const dataStaffs = await getAllStaffs();
   const getRole = await getRoleUser();
+  const allBookingDetail = await getBookingDetail();
+  //const dataStaffs = await getAllStaffs();
+
+  const dataStaffs = await getStaffByServiceId(
+    "f101c500-1092-44ac-bd8f-62668a4c8920"
+  );
 
   //   console.log(adminName);
 
