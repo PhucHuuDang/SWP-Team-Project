@@ -4,7 +4,8 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const body = await request.json();
 
-  const { bookingDetailId, staffId, assignBy } = body;
+  const { bookingDetailId, staffId, bookingDetailType, bookingDetailTittle } =
+    body;
 
   // console.log(body);
 
@@ -15,7 +16,8 @@ export async function POST(request: Request) {
       {
         bookingDetailId: bookingDetailId,
         staffId: staffId,
-        assignBy: assignBy,
+        bookingDetailType: bookingDetailType,
+        bookingDetailTittle: bookingDetailTittle,
       }
     );
 

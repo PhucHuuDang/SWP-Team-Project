@@ -23,12 +23,16 @@ const AssignTaskClient: React.FC<AssignTaskClientProps> = ({
   getRole,
 }) => {
   const [bookingDetailId, setBookingDetailId] = useState("");
+  const [bookingDetailType, setBookingDetailType] = useState("");
+  const [bookingDetailTittle, setBookingDetailTittle] = useState("");
   const assignModal = useAssignModal();
   const router = useRouter();
 
   const openAssignModal = useCallback(
-    (id: string) => {
+    (id: string, bookingDetailType: string, bookingDetailTittle: string) => {
       setBookingDetailId(id);
+      setBookingDetailType(bookingDetailType);
+      setBookingDetailTittle(bookingDetailTittle);
       assignModal.onOpen();
     },
     [assignModal]
@@ -132,14 +136,19 @@ const AssignTaskClient: React.FC<AssignTaskClientProps> = ({
           return (
             <AssignTaskListing
               // dataStaffs={dataStaffs}
-              key={item.serviceId}
+              key={item.bookingDetailId}
               dataBookingDetail={item}
               openAssignModal={openAssignModal}
             />
           );
         })}
       </div>
-      <AssignModal dataStaffs={dataStaffs} bookingDetailId={bookingDetailId} />
+      <AssignModal
+        dataStaffs={dataStaffs}
+        bookingDetailId={bookingDetailId}
+        bookingDetailType={bookingDetailType}
+        bookingDetailTittle={bookingDetailTittle}
+      />
       {/* <AssignTaskListing /> */}
     </ClientOnly>
   );
