@@ -10,10 +10,11 @@ import EmptyState from "../components/EmptyState";
 type ListingBookingOneDayProps = {
   id: string;
   studentName: string;
-  paymentMethodName: string;
-  created: string;
   totalPay: number;
+  apartmentId: string;
+  apartmentData: any;
   statusContract: string;
+  created: string;
 };
 
 interface DashboardOrderClientProps {
@@ -98,9 +99,9 @@ const DashboardOrderClient: React.FC<DashboardOrderClientProps> = ({
                 </div>
                 <div className="pl-4">
                   <p className="text-gray-800 font-bold">
-                    {order.totalPay.toLocaleString("en-US", {
+                    {order.totalPay.toLocaleString("vi-VN", {
                       style: "currency",
-                      currency: "USD",
+                      currency: "VND",
                     })}
                   </p>
                   <p className="text-gray-800 text-sm">{order.studentName}</p>
@@ -121,7 +122,7 @@ const DashboardOrderClient: React.FC<DashboardOrderClientProps> = ({
               </p>
               <p className="hidden md:flex">{order.created.split("T")[0]}</p>
               <div className="sm:flex hidden justify-between items-center">
-                <p>{order.paymentMethodName}</p>
+                <p>{"Banking"}</p>
                 <BsThreeDotsVertical />
               </div>
             </li>

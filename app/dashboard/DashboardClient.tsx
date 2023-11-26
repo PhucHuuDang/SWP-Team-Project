@@ -32,10 +32,11 @@ ChartJS.register(
 type ListingBookingOneDayProps = {
   id: string;
   studentName: string;
-  paymentMethodName: string;
-  created: string;
   totalPay: number;
+  apartmentId: string;
+  apartmentData: any;
   statusContract: string;
+  created: string;
 };
 
 type ChartData = {
@@ -174,9 +175,9 @@ const DashboardClient: React.FC<DashboardClientProps> = ({
                 pb-4"
           >
             <p className="text-2xl font-bold">
-              {numericTotalPriceOneDay.toLocaleString("en-US", {
+              {numericTotalPriceOneDay.toLocaleString("vi-VN", {
                 style: "currency",
-                currency: "USD",
+                currency: "VND",
               })}
             </p>
             <p className="text-gray-600">Daily Revenue</p>
@@ -207,9 +208,9 @@ const DashboardClient: React.FC<DashboardClientProps> = ({
         >
           <div className="flex flex-col w-full pb-4">
             <p className="text-2xl font-bold">
-              {numericTotalPriceOneYear.toLocaleString("en-US", {
+              {numericTotalPriceOneYear.toLocaleString("vi-VN", {
                 style: "currency",
-                currency: "USD",
+                currency: "VND",
               })}
             </p>
             <p className="text-gray-600">YTD Revenue</p>
@@ -309,9 +310,9 @@ const DashboardClient: React.FC<DashboardClientProps> = ({
                 </div>
                 <div className="pl-4">
                   <p className="text-gray-800 font-bold">
-                    {booking.totalPay.toLocaleString("en-US", {
+                    {booking.totalPay.toLocaleString("vi-VN", {
                       style: "currency",
-                      currency: "USD",
+                      currency: "VND",
                     })}
                   </p>
                   <p className="text-gray-400 text-sm">{booking.studentName}</p>

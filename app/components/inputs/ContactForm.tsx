@@ -49,7 +49,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="flex flex-col gap-[40px] ">
+    <div className="flex flex-col gap-[40px] lg:max-w-2xl xl:max-w-3xl mx-auto px-4">
       <div className="flex flex-row gap-2 items-center justify-center">
         <BiMailSend size={24} />
         <span className="font-bold text-md">Send us your desire!</span>

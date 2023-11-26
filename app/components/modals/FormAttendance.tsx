@@ -22,6 +22,7 @@ import ServicesFormSelect from "../inputs/ServicesFormSelect";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { format } from "date-fns-tz";
 
 interface FormAttendanceProps {
   isOpen?: boolean;
@@ -185,42 +186,29 @@ const FormAttendance: React.FC<FormAttendanceProps> = ({
 
   // console.log(isValid);
   const handleDateChange = (value: any) => {
-    // Access the JavaScript Date object from the Day.js object
-    // console.log(value);
     const selectedDate = value.$d;
     const selectedHours = value.$H;
     const selectedMinutes = value.$m;
     const javascriptDate = value.$d;
-    // console.log("Selected Date:", javascriptDate);
 
-    // Minutes
+    const timeZone = "Asia/Ho_Chi_Minh";
+    const formattedDateAndTime = format(
+      javascriptDate,
+      "yyyy-MM-dd'T'HH:mm:ssXXX",
+      { timeZone }
+    );
+    // const { parseISO, format } = require("date-fns-tz");
 
-    const date = javascriptDate.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
-    const day = javascriptDate.getDate();
-    const month = javascriptDate.getMonth() + 1;
-    const year = javascriptDate.getFullYear();
-    const hours = javascriptDate.getHours();
-    const minutes = javascriptDate.getMinutes();
+    // const clientDateString = "2023-12-01T12:34:56.789Z";
+    // const serverDate = parseISO(clientDateString);
+    // const formattedDate = format(serverDate, "yyyy-MM-dd HH:mm:ssXXX", {
+    //   timeZone: "Asia/Ho_Chi_Minh",
+    // });
 
-    // console.log(date);
-    // console.log(minutes);
-    // console.log(day);
-    // console.log(month);
-    // console.log(year);
+    console.log(formattedDateAndTime);
 
-    // const formatDateAndTime = `${year}-${month}-${day}T${date}`;
-    const formatDateAndTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-
-    // console.log(formatDateAndTime);
-    setSelectedDate(formatDateAndTime);
+    setSelectedDate(formattedDateAndTime);
   };
-
-  // console.log(selectRemainingTaskDuration);
-  // console.log(selectTypeOfBookingDetail);
 
   if (!isOpen) {
     return null;

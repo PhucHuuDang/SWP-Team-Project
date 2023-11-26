@@ -43,13 +43,14 @@
 
 interface BookingData {
   totalPrice: any;
-  listBookingData: Array<{
+  listBookingDataNew: Array<{
     id: string;
     studentName: string;
-    paymentMethodName: string;
-    created: string;
     totalPay: number;
+    apartmentId: string;
+    apartmentData: any;
     statusContract: string;
+    created: string;
   }>;
 }
 
@@ -81,13 +82,14 @@ export default async function getBookingMoneyByOneYear(
     const data: BookingData = await response.json();
     const extractedData = {
       totalPrice: data.totalPrice,
-      bookings: data.listBookingData.map((booking) => ({
+      bookings: data.listBookingDataNew.map((booking) => ({
         id: booking.id,
         studentName: booking.studentName,
-        paymentMethodName: booking.paymentMethodName,
-        created: booking.created,
         totalPay: booking.totalPay,
+        apartmentId: booking.apartmentId,
+        apartmentData: booking.apartmentData,
         statusContract: booking.statusContract,
+        created: booking.created,
       })),
     };
 
