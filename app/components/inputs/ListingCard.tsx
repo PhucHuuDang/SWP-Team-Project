@@ -317,7 +317,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="flex text-md flex-row items-center gap-4">
             <div className="flex flex-row items-center gap-2">
               <del className="font-light text-[#ed9080]">
-                {packageData.totalOriginalPrice.toFixed(3)}
+                {formattedPrice(packageData.totalOriginalPrice)}
               </del>{" "}
               <span>₫</span>
             </div>
@@ -336,7 +336,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
             <div className="flex flex-row items-center gap-2">
               <span className="font-light text-[#ff6347] ">
-                {packageData.totalPrice.toFixed(3)}
+                {formattedPrice(packageData.totalPrice)}
               </span>{" "}
               <span>₫</span>
             </div>
@@ -364,7 +364,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
             <div className="flex flex-row items-center gap-2">
               <span className="font-light text-[#ff6347] ">
-                {data?.price.toFixed(3)}
+                {formattedPrice(data?.price ?? 0)}
               </span>{" "}
               <span>₫</span>
             </div>

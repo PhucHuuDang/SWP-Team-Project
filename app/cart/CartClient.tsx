@@ -24,6 +24,7 @@ import axios from "axios";
 import { ServiceArrayProps } from "./MainCart";
 import TimeSelect from "../components/inputs/TimeSelect";
 import { useRouter } from "next/navigation";
+import numeral from "numeral";
 
 interface CartClientProps {
   data?: PackageProps | undefined;
@@ -81,12 +82,19 @@ const CartClient: React.FC<CartClientProps> = ({
     }, 0);
 
     // return calculatePrice.toFixed(3);
-    return calculatePrice.toFixed(3);
+    return calculatePrice;
   }, [priceServices, updateStoreBookingData]);
 
   const formattedTotalPrice = useMemo(() => {
-    return totalPrice !== undefined ? totalPrice : "0.000"; // Set a default value if totalPrice is undefined
+    const defaultPrice = 0;
+    return totalPrice !== undefined ? totalPrice : defaultPrice; // Set a default value if totalPrice is undefined
   }, [totalPrice]);
+  const displayedPrice = formattedTotalPrice.toLocaleString("vi-VN", {
+    style: "currency",
+    currency: "VND",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
 
   const {
     register,
@@ -585,7 +593,7 @@ const CartClient: React.FC<CartClientProps> = ({
             <div className="flex flex-row items-center gap-2 mr-4">
               <span>Original Price: </span>
               <del className="font-light text-[#ed9080]">
-                {item.totalOriginalPrice.toFixed(3)}
+                {formattedPrice(item.totalOriginalPrice)}
               </del>{" "}
               <span>₫</span>
             </div>
@@ -599,9 +607,11 @@ const CartClient: React.FC<CartClientProps> = ({
             {/* <div>price: {data.totalPrice}</div> */}
             <div key={item.id} className="mr-4">
               Price:{" "}
-              {storeBookingData
-                .find((priceInitial) => priceInitial.id === item.id)
-                ?.totalPrice.toFixed(3)}{" "}
+              {formattedPrice(
+                storeBookingData.find(
+                  (priceInitial) => priceInitial.id === item.id
+                )?.totalPrice ?? 0
+              )}{" "}
               ₫
             </div>
             <div className="flex items-center gap-5">
@@ -634,7 +644,7 @@ const CartClient: React.FC<CartClientProps> = ({
               </div>
             </div>
             <div className="text-[#ff6347] font-semibold">
-              Price: {item.totalPrice.toFixed(3)} ₫
+              Price: {formattedPrice(item.totalPrice)} ₫
             </div>
             <div
               onClick={() => removeCart(item.id)}
@@ -680,10 +690,7 @@ const CartClient: React.FC<CartClientProps> = ({
             <p className="text-[#ff6347] font-semibold">
               {/* {totalPrice !== 0 ? totalPrice : priceServices} ₫ */}
               {/* {totalPrice} ₫ */}
-              {formattedTotalPrice !== "0.000"
-                ? formattedTotalPrice
-                : priceServices}{" "}
-              ₫
+              {displayedPrice}{" "}
             </p>
           </div>
 
