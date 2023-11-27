@@ -12,7 +12,7 @@ export async function POST(request: Request) {
   const paymentCurrency = "VND";
   const paymentDestinationId = "VNPAY";
 
-  // console.log(body);
+  console.log(body);
 
   // const formatListPackage = listPackage.map((item: any) => ({
   //   packageId: item.packageId,

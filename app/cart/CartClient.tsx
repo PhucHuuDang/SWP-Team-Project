@@ -66,9 +66,6 @@ const CartClient: React.FC<CartClientProps> = ({
   const day = String(currentDate.getDate()).padStart(2, "0"); // Pad with 0 if needed.
 
   const formattedDate = `${year}-${month}-${day}`;
-  const formattedPrice = (price: number): string => {
-    return numeral(price).format("0,0 ₫");
-  };
 
   // console.log(formattedDate);
 
@@ -95,6 +92,12 @@ const CartClient: React.FC<CartClientProps> = ({
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
+
+  const formattedPrice = (price: number): string => {
+    return numeral(price).format("0,0 đ");
+  };
+
+  console.log(formattedPrice(totalPrice));
 
   const {
     register,
@@ -172,7 +175,10 @@ const CartClient: React.FC<CartClientProps> = ({
       startDate: formattedDate,
       endDate: endDate,
       apartmentId: apartmentId,
-      totalPrice: totalPrice,
+      totalPrice:
+        formattedPrice(totalPrice) === "0"
+          ? formattedPrice(priceServices)
+          : formattedPrice(totalPrice),
       listPackage: listPackage,
       listService: serviceArray,
     }),
@@ -185,11 +191,13 @@ const CartClient: React.FC<CartClientProps> = ({
     // setCustomValue("requiredAmount", totalPrice);
     setCustomValue(
       "requiredAmount",
-      formattedTotalPrice !== "0.000" ? formattedTotalPrice : priceServices
+      formattedPrice(totalPrice) === "0"
+        ? formattedPrice(priceServices)
+        : formattedPrice(totalPrice)
     );
   }, [newBookingValue, setCustomValue, formattedTotalPrice, priceServices]);
 
-  // console.log(newBookingValue);
+  console.log(newBookingValue);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -689,8 +697,10 @@ const CartClient: React.FC<CartClientProps> = ({
             Total payment:
             <p className="text-[#ff6347] font-semibold">
               {/* {totalPrice !== 0 ? totalPrice : priceServices} ₫ */}
-              {/* {totalPrice} ₫ */}
-              {displayedPrice}{" "}
+              {formattedPrice(totalPrice) === "0"
+                ? formattedPrice(priceServices)
+                : formattedPrice(totalPrice)}
+              {/* {displayedPrice}{" "} */}
             </p>
           </div>
 
